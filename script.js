@@ -278,63 +278,82 @@ function updateBars() {
 }
 
 function buttonPressed() {
-    if (ended) return;
+    
     switch (this.id) {
         case "fuelPump":
+            if (ended) return;
             fuelPump();
             break;
         case "flowerGarden":
+            if (ended) return;
             flowerGarden();
             break;
         case "ballroom":
+            if (ended) return;
             ballroom();
             break;
         case "coffeeHouse":
+            if (ended) return;
             coffeeHouse();
             break;
         case "juiceBar":
+            if (ended) return;
             juiceBar();
             break;
         case "theater":
+            if (ended) return;
             theater();
             break;
         case "italianRestaurant":
+            if (ended) return;
             italianRestaurant();
             break;
         case "tacoStand":
+            if (ended) return;
             tacoStand();
             break;
         case "nightClub":
+            if (ended) return;
             nightClub();
             break;
         case "fair":
+            if (ended) return;
             fair();
             break;
         case "sandwichShop":
+            if (ended) return;
             sandwichShop();
             break;
         case "airport":
+            if (ended) return;
             airport();
             break;
         case "home":
+            if (ended) return;
             home();
             break;
         case "jewelryStore":
+            if (ended) return;
             jewelryStore();
             break;
         case "shoppingMall":
+            if (ended) return;
             shoppingMall();
             break;
         case "up":
+            if (ended) return;
             up();
             break;
         case "left":
+            if (ended) return;
             left();
             break;
         case "down":
+            if (ended) return;
             down();
             break;
         case "right":
+            if (ended) return;
             right();
             break;
         case "reset":
