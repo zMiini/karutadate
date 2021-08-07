@@ -161,7 +161,7 @@ function shoppingMall() {
 }
 
 function finalAPCalc() {
-    affectionPoints += entertainment + food + drink / 6;
+    affectionPoints += (entertainment + food + drink) / 6;
 }
 
 function checkFail() {
@@ -182,6 +182,8 @@ function checkFail() {
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
+        finalAPCalc();
+        message.innerHTML = "You will get around " + affectionPoints + " Affection Points.";
 
     }
 }
@@ -276,6 +278,7 @@ function updateBars() {
 }
 
 function buttonPressed() {
+    if (ended) return;
     switch (this.id) {
         case "fuelPump":
             fuelPump();
