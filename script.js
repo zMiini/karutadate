@@ -172,7 +172,8 @@ function checkFail() {
             function(bar) {
                 if (bar.innerHTML <= 0) {
                     bar.parentNode.style.backgroundColor = "red";
-                    bar.parentNode.style.border = "1px solid red";
+                    bar.parentNode.style.border = "1px solid white";
+                    bar.innerHTML = 0;
                 } 
             }
         )
@@ -199,6 +200,13 @@ function reset() {
     turnCount = 0;
     ended = false;
     updateBars();
+
+    statBars.forEach(
+        function (bar) {
+            bar.parentNode.style.backgroundColor = "black";
+            bar.parentNode.style.border = "1px solid white";
+        }
+    )
 }
 
 function goBack() {
@@ -278,7 +286,6 @@ function updateBars() {
 }
 
 function buttonPressed() {
-    
     switch (this.id) {
         case "fuelPump":
             if (ended) return;
