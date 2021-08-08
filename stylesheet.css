@@ -118,8 +118,6 @@ button {
     background-color: rgb(95, 90, 90)B7B8;
 }
 
-
-
 #messageBox {
     display: table-cell;
     background-color: white;
@@ -138,6 +136,18 @@ button {
     width: 90%;
     text-align: center;
     line-height: 80px; 
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.emoji-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6%;
+    height: 3%;
+    background-color: #AAB7B8;
+    border: 1px solid white;
 }
 
 #message {
@@ -147,9 +157,7 @@ button {
     line-height: normal; 
 }
 
-#outputMessage {
-    
-   
+#outputMessage, #outputEmoji {
     -webkit-user-select: text;   
     -moz-user-select: text; /* Firefox */
     -ms-user-select: text; /* IE10+/Edge */

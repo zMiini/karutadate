@@ -1,8 +1,10 @@
 const buttons = document.querySelectorAll(".button");
 const message = document.getElementById("message");
 const outputMessage = document.getElementById("outputMessage");
+const outputEmoji = document.getElementById("outputEmoji");
 const statBars = document.querySelectorAll(".progress-text");
 const styleBars = document.querySelectorAll(".bar");
+const emojiButton = document.querySelectorAll(".emoji-button");
 
 let gas = 100;
 let food = 50;
@@ -13,6 +15,8 @@ let moves = [];
 let shopping = false;
 let turnCount = 0;
 let ended = false;
+let movesEmoji = [];
+let messageIsText = true;
 
 function move() {
     if (ended) return;
@@ -49,33 +53,39 @@ function interact() {
 function left() {
     move();
     moves.push(" Left");
+    movesEmoji.push(" &#11013");
 }
 
 function up() {
     move();
     moves.push(" Up");
+    movesEmoji.push(" &#11014");
 }
 
 function right() {
     move();
     moves.push(" Right");
+    movesEmoji.push(" &#10145");
 }
 
 function down() {
     move();
     moves.push(" Down");
+    movesEmoji.push(" &#11015");
 }
 
 function fuelPump() {
     gas += 100;
     interact();
     moves.push(" Gas");
+    movesEmoji.push(" &#9981");
 }
 
 function flowerGarden() {
     entertainment += 100;
     interact();
     moves.push(" Flower");
+    movesEmoji.push(" &#127804");
 }
 
 function ballroom() {
@@ -84,36 +94,42 @@ function ballroom() {
     drink -= 15;
     interact();
     moves.push(" Dancer");
+    movesEmoji.push(" &#128131");
 }
 
 function coffeeHouse() {
     drink += 60;
     interact();
     moves.push(" Coffee");
+    movesEmoji.push(" &#9749");
 }
 
 function juiceBar() {
     drink += 60;
     interact();
     moves.push(" Juice");
+    movesEmoji.push(" &#129475");
 }
 
 function theater() {
     entertainment += 60;
     interact();
     moves.push(" Theater");
+    movesEmoji.push(" &#127917");
 }
 
 function italianRestaurant() {
     food += 60;
     interact();
     moves.push(" Spaguetti");
+    movesEmoji.push(" &#127837");
 }
 
 function tacoStand() {
     food += 60;
     interact();
     moves.push(" Taco");
+    movesEmoji.push(" &#127790");
 }
 
 function nightClub() {
@@ -121,6 +137,7 @@ function nightClub() {
     entertainment += 40;
     interact();
     moves.push(" Nightclub");
+    movesEmoji.push(" &#127865");
 }
 
 function fair() {
@@ -129,6 +146,7 @@ function fair() {
     entertainment +=40;
     interact();
     moves.push(" Fair");
+    movesEmoji.push(" &#127905");
 }
 
 function sandwichShop() {
@@ -136,12 +154,14 @@ function sandwichShop() {
     drink += 20;
     interact();
     moves.push(" Sandwich");
+    movesEmoji.push(" &#129386");
 }
 
 function airport() {
     entertainment -= 10;
     interact();
     moves.push(" Airport");
+    movesEmoji.push(" &#9992");
     ended = true;
     checkSuccess();
 }
@@ -149,6 +169,7 @@ function airport() {
 function home() {
     interact();
     moves.push(" Home");
+    movesEmoji.push("  &#127969");
     ended = true;
     checkSuccess();
 }
@@ -156,12 +177,14 @@ function home() {
 function jewelryStore() {
     interact();
     moves.push(" Ring");
+    movesEmoji.push(" &#128141");
 }
 
 function shoppingMall() {
     interact();
     shopping = true;
     moves.push(" Shopping");
+    movesEmoji.push(" &#128717");
 }
 
 function checkFail() {
@@ -208,6 +231,16 @@ function checkSuccess() {
     }
 }
 
+function textToEmojiButton() {
+    if (messageIsText) {
+        outputMessage.innerHTML = movesEmoji;
+        messageIsText = false;
+    } else {
+        outputMessage.innerHTML = moves;
+        messageIsText = true;
+    }
+}
+
 function reset() {
     gas = 100;
     food = 50;
@@ -221,6 +254,8 @@ function reset() {
     removeAllCD();
     updateBars();
     message.innerHTML = " "
+    outputEmoji.innerHTML = " "
+    movesEmoji = [];
 
     statBars.forEach(
         function (bar) {
@@ -545,8 +580,11 @@ function buttonPressed() {
     outputMessage.innerHTML = moves;
 }
 
+
+emojiButton.forEach(button => button.addEventListener("click",textToEmojiButton))
 buttons.forEach(button => button.addEventListener("click",buttonPressed));
 document.addEventListener("contextmenu", event => event.preventDefault());
+
 
 updateBars();
 
