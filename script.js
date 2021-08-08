@@ -163,7 +163,7 @@ function shoppingMall() {
 }
 
 function finalAPCalc() {
-    affectionPoints += (entertainment + food + drink) / 6;
+    affectionPoints += (food + drink + entertainment) / 6;
 }
 
 function checkFail() {
@@ -186,14 +186,16 @@ function checkSuccess() {
     if (time <= 0) {
         ended = true;
         finalAPCalc();
-        message.innerHTML = "You will get around " + affectionPoints + " Affection Points.";
+        message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
     }
-    if (ended === true && gas > 0) {
-        if (food > 0) {
-            if (drink > 0) {
-                if (entertainment > 0) {
-                    finalAPCalc();
-                    message.innerHTML = "You will get around " + affectionPoints + " Affection Points.";
+    if (ended === true && time > 0) {
+        if (gas > 0) {
+            if (food > 0) {
+                if (drink > 0) {
+                    if (entertainment > 0) {
+                        finalAPCalc();
+                        message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
+                    }
                 }
             }
         }
@@ -390,15 +392,12 @@ function onCD(button) {
 }
 
 function removeCD() {
-    console.log(moves);
     let lastMove = moves[moves.length - 1];
     let formatLastMove = lastMove.replace(" ","");
      buttons.forEach (
         function (button) {
-            console.log(button)
             if (button.id === formatLastMove) {
                 button.classList.remove("onCD");
-                console.log("match")
             } 
         }
     )
