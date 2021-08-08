@@ -10,7 +10,7 @@ let drink = 50;
 let entertainment = 75;
 let time = 100;
 let moves = [];
-let affectionPoints = 0;
+let shopping = false;
 let turnCount = 0;
 let ended = false;
 
@@ -160,7 +160,7 @@ function jewelryStore() {
 
 function shoppingMall() {
     interact();
-    affectionPoints += 30;
+    shopping = true;
     moves.push(" Shopping");
 }
 
@@ -180,11 +180,19 @@ function checkFail() {
     }
 }
 
+function calcAP () {
+    let affectionPoints = (food + drink + entertainment) / 6;
+    if (shopping) {
+        affectionPoints += 30;
+    }
+    return affectionPoints;
+
+}
+
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
-        affectionPoints += (food + drink + entertainment) / 6;
-        message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
+        message.innerHTML = "You will get around " + Math.round(calcAP()) + " Affection Points.";
     }
     if (ended === true && time > 0) {
         if (gas > 0) {
@@ -192,7 +200,7 @@ function checkSuccess() {
                 if (drink > 0) {
                     if (entertainment > 0) {
                         affectionPoints += (food + drink + entertainment) / 6;
-                        message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
+                        message.innerHTML = "You will get around " + Math.round(calcAP()) + " Affection Points.";
                     }
                 }
             }
@@ -205,11 +213,11 @@ function reset() {
     food = 50;
     drink = 50;
     entertainment = 75;
-    affectionPoints = 0;
     time = 100;
     ended = false;
     moves = [];
     turnCount = 0;
+    shopping = false;
     removeAllCD();
     updateBars();
     message.innerHTML = " "
@@ -247,6 +255,7 @@ function goBack() {
     ended = false;
     turnCount -= 1;
     updateBars();
+    shopping = false;
 
     message.innerHTML = " "
 
@@ -413,7 +422,7 @@ function removeCD() {
         function (button) {
             if (button.id === formatLastMove) {
                 if (button.id === "Shopping") {
-                    affectionPoints -= 30;
+                    shopping = false;
                 } else if (button.id === "Home" || button.id === "Airport") {
                     ended = false;
                     message.innerHTML = " ";
