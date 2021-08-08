@@ -109,6 +109,11 @@ button {
     margin-left: -600px;
 }
 
+.interactionButtons > .onCD {
+    opacity: 0.5;
+    background-color: rgb(95, 90, 90)B7B8;
+}
+
 #messageBox, #outputBox{
     display: table-cell;
     background-color: white;
@@ -136,63 +141,63 @@ button {
     content: url(emoji/backArrow.png);
 }
 
-#fuelPump {
+#Gas {
     content: url(emoji/gas.png);
 }
 
-#flowerGarden {
+#Flower {
     content: url(emoji/flower.png);
 }
 
-#ballroom {
+#Dancer {
     content: url(emoji/dancer.png);
 }
 
-#coffeeHouse {
+#Coffee {
     content: url(emoji/coffee.png);
 }
 
-#juiceBar {
+#Juice {
     content: url(emoji/juice.png);
 }
 
-#theater {
+#Theater {
     content: url(emoji/theater.png);
 }
 
-#italianRestaurant {
+#Spaguetti {
     content: url(emoji/italian.png);
 }
 
-#tacoStand {
+#Taco {
     content: url(emoji/taco.png);
 }
 
-#nightClub {
+#Nightclub {
     content: url(emoji/nightclub.png);
 }
 
-#fair {
+#Fair {
     content: url(emoji/fair.png);
 }
 
-#sandwichShop {
+#Sandwich {
     content: url(emoji/sandwich.png);
 }
 
-#airport {
+#Airport {
     content: url(emoji/airpoirt.png);
 }
 
-#home {
+#Home {
     content: url(emoji/home.png);
 }
 
-#jewelryStore {
+#Ring {
     content: url(emoji/ring.png);
 }
 
-#shoppingMall {
+#Shopping {
     content: url(emoji/shopping.png);
 }
 

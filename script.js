@@ -48,22 +48,22 @@ function interact() {
 
 function left() {
     move();
-    moves.push("Left ");
+    moves.push(" Left");
 }
 
 function up() {
     move();
-    moves.push("Up ");
+    moves.push(" Up");
 }
 
 function right() {
     move();
-    moves.push("Right ");
+    moves.push(" Right");
 }
 
 function down() {
     move();
-    moves.push("Down ");
+    moves.push(" Down");
 }
 
 function fuelPump() {
@@ -147,6 +147,8 @@ function airport() {
 function home() {
     interact();
     moves.push(" Home");
+    ended = true;
+    checkSuccess();
 }
 
 function jewelryStore() {
@@ -157,7 +159,7 @@ function jewelryStore() {
 function shoppingMall() {
     interact();
     affectionPoints += 30;
-    moves.push(" Mall");
+    moves.push(" Shopping");
 }
 
 function finalAPCalc() {
@@ -185,7 +187,16 @@ function checkSuccess() {
         ended = true;
         finalAPCalc();
         message.innerHTML = "You will get around " + affectionPoints + " Affection Points.";
-
+    }
+    if (ended === true && gas > 0) {
+        if (food > 0) {
+            if (drink > 0) {
+                if (entertainment > 0) {
+                    finalAPCalc();
+                    message.innerHTML = "You will get around " + affectionPoints + " Affection Points.";
+                }
+            }
+        }
     }
 }
 
@@ -195,10 +206,10 @@ function reset() {
     drink = 50;
     entertainment = 75;
     time = 100;
-    moves = [];
-    affectionPoints = 0;
-    turnCount = 0;
     ended = false;
+    moves = [];
+    turnCount = 0;
+    removeAllCD();
     updateBars();
 
     statBars.forEach(
@@ -209,9 +220,98 @@ function reset() {
     )
 }
 
+function removeAllCD() {
+    buttons.forEach (
+        function (button) {
+            if (button.classList.contains("onCD")) {
+                button.classList.remove("onCD")
+            }
+        }
+    )
+}
+
 function goBack() {
     if (turnCount === 1) return;
+
+    removeCD();
+    moves.pop();
+    gas = 100;
+    food = 50;
+    drink = 50;
+    entertainment = 75;
+    time = 100;
+    ended = false;
     turnCount -= 1;
+    updateBars();
+    
+    calcMoves();
+}
+
+function calcMoves() {
+    if (ended) return;
+    for (i = 0; i < moves.length; i++) {
+        switch (moves[i]) {
+            case " Gas":
+                fuelPump();
+                break;
+            case " Flower":
+                flowerGarden();
+                break;
+            case " Dancer":
+                ballroom();
+                break;
+            case " Coffee":
+                coffeeHouse();
+                break;
+            case " Juice":
+                juiceBar();
+                break;
+            case " Theater":
+                theater();
+                break;
+            case " Spaguetti":
+                italianRestaurant();
+                break;
+            case " Taco":
+                tacoStand();
+                break;
+            case " Nightclub":
+                nightClub();
+                break;
+            case " Fair":
+                fair();
+                break;
+            case " Sandwich":
+                sandwichShop();
+                break;
+            case " Airport":
+                airport();
+                break;
+            case " Home":
+                home();
+                break;
+            case " Ring":
+                jewelryStore();
+                break;
+            case " Shopping":
+                shoppingMall();
+                break;
+            case " Up":
+                up();
+                break;
+            case " Left":
+                left();
+                break;
+            case " Down":
+                down();
+                break;
+            case " Right":
+                right();
+                break;
+        }
+        turnCount -= 1;  
+        moves.pop();
+    }
 }
 
 function updateBarValue() {
@@ -285,91 +385,129 @@ function updateBars() {
     updateBarColor();
 }
 
+function onCD(button) {
+    button.classList.add("onCD"); 
+}
+
+function removeCD() {
+    console.log(moves);
+    let lastMove = moves[moves.length - 1];
+    let formatLastMove = lastMove.replace(" ","");
+     buttons.forEach (
+        function (button) {
+            console.log(button)
+            if (button.id === formatLastMove) {
+                button.classList.remove("onCD");
+                console.log("match")
+            } 
+        }
+    )
+}
+
+function checkCD () {
+    if (moves.length <= 10) return;
+    const buttonsOnCD = document.querySelectorAll(".onCD");
+    buttonsOnCD.forEach(
+        function (button) {
+            let formatMove = moves[turnCount - 11].replace(" ", "");
+            if (button.id === formatMove) {
+                button.classList.remove("onCD");
+            }
+        }
+    )
+}
+
 function buttonPressed() {
-    switch (this.id) {
-        case "fuelPump":
-            if (ended) return;
-            fuelPump();
-            break;
-        case "flowerGarden":
-            if (ended) return;
-            flowerGarden();
-            break;
-        case "ballroom":
-            if (ended) return;
-            ballroom();
-            break;
-        case "coffeeHouse":
-            if (ended) return;
-            coffeeHouse();
-            break;
-        case "juiceBar":
-            if (ended) return;
-            juiceBar();
-            break;
-        case "theater":
-            if (ended) return;
-            theater();
-            break;
-        case "italianRestaurant":
-            if (ended) return;
-            italianRestaurant();
-            break;
-        case "tacoStand":
-            if (ended) return;
-            tacoStand();
-            break;
-        case "nightClub":
-            if (ended) return;
-            nightClub();
-            break;
-        case "fair":
-            if (ended) return;
-            fair();
-            break;
-        case "sandwichShop":
-            if (ended) return;
-            sandwichShop();
-            break;
-        case "airport":
-            if (ended) return;
-            airport();
-            break;
-        case "home":
-            if (ended) return;
-            home();
-            break;
-        case "jewelryStore":
-            if (ended) return;
-            jewelryStore();
-            break;
-        case "shoppingMall":
-            if (ended) return;
-            shoppingMall();
-            break;
-        case "up":
-            if (ended) return;
-            up();
-            break;
-        case "left":
-            if (ended) return;
-            left();
-            break;
-        case "down":
-            if (ended) return;
-            down();
-            break;
-        case "right":
-            if (ended) return;
-            right();
-            break;
-        case "reset":
-            reset();
-            break;
-        case "goback":
-            goBack();
-            break;
-    }   
+    if (this.id === "reset") {
+        reset();
+    } else if (this.id === "goback") {
+        goBack();
+    } else if (ended) {
+        return;
+    } else {
+        switch (this.id) {
+            case "Gas":
+                fuelPump();
+                break;
+            case "Flower":
+                flowerGarden();
+                break;
+            case "Dancer":
+                if (this.classList.contains("onCD")) return;
+                ballroom();
+                onCD(this);
+                break;
+            case "Coffee":
+                if (this.classList.contains("onCD")) return;
+                coffeeHouse();
+                onCD(this);
+                break;
+            case "Juice":
+                if (this.classList.contains("onCD")) return;
+                juiceBar();
+                onCD(this);
+                break;
+            case "Theater":
+                if (this.classList.contains("onCD")) return;
+                theater();
+                onCD(this);
+                break;
+            case "Spaguetti":
+                if (this.classList.contains("onCD")) return;
+                italianRestaurant();
+                onCD(this);
+                break;
+            case "Taco":
+                if (this.classList.contains("onCD")) return;
+                tacoStand();
+                onCD(this);
+                break;
+            case "Nightclub":
+                if (this.classList.contains("onCD")) return;
+                nightClub();
+                onCD(this);
+                break;
+            case "Fair":
+                if (this.classList.contains("onCD")) return;
+                fair();
+                onCD(this);
+                break;
+            case "Sandwich":
+                if (this.classList.contains("onCD")) return;
+                sandwichShop();
+                onCD(this);
+                break;
+            case "Airport":
+                airport();
+                break;
+            case "Home":
+                home();
+                break;
+            case "Ring":
+                if (this.classList.contains("onCD")) return;
+                jewelryStore();
+                onCD(this);
+                break;
+            case "Shopping  ":
+                if (this.classList.contains("onCD")) return;
+                shoppingMall();
+                onCD(this);
+                break;
+            case "up":
+                up();
+                break;
+            case "left":
+                left();
+                break;
+            case "down":
+                down();
+                break;
+            case "right":
+                right();
+                break;
+        } 
+    }  
+    checkCD();
     outputMessage.innerHTML = moves;
 }
 
@@ -377,3 +515,7 @@ buttons.forEach(button => button.addEventListener("click",buttonPressed));
 document.addEventListener("contextmenu", event => event.preventDefault());
 
 updateBars();
+
+//final entertainment + final food + final drink / 6
+
+//messageBox.innerHTML = "<b>You interacted with Jewelry Store! <br><p style='color:green'>You've rerolled the board.</p><br><p style='color:red'>You've lost 10 Entertainment Points.</p></b>";	
