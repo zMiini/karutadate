@@ -216,14 +216,14 @@ function calcAP () {
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
-        message.innerHTML = "You will get around " + Math.round(calcAP()) + " Affection Points.";
+        message.innerHTML = "You will get " + Math.round(calcAP()) + " Affection Points.";
     }
     if (ended === true && time > 0 && gas > 0 && food > 0 && drink > 0 && entertainment > 0) {
         let homeAP = calcAP() * (1 - time / 100);
         if (shopping) {
             homeAP += 30;
         }
-        message.innerHTML = "You will get around " + Math.round(homeAP) + " Affection Points.";
+        message.innerHTML = "You will get " + Math.round(homeAP) + " Affection Points.";
     }
 }
 
