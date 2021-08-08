@@ -223,7 +223,6 @@ function checkSuccess() {
         if (shopping) {
             homeAP += 30;
         }
-        
         message.innerHTML = "You will get around " + Math.round(homeAP) + " Affection Points.";
     }
 }
