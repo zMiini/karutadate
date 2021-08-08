@@ -282,6 +282,7 @@ function goBack() {
 
     removeCD();
     moves.pop();
+    movesEmoji.pop();
     gas = 100;
     food = 50;
     drink = 50;
@@ -590,4 +591,7 @@ updateBars();
 
 //final entertainment + final food + final drink / 6
 
-//messageBox.innerHTML = "<b>You interacted with Jewelry Store! <br><p style='color:green'>You've rerolled the board.</p><br><p style='color:red'>You've lost 10 Entertainment Points.</p></b>";	
+
+//deberias hacer pa que calcule el home
+//esta es la formula ap = (drink+food+emo)/6*(1-time/100)
+
