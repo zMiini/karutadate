@@ -282,7 +282,7 @@ function goBack() {
 
     removeCD();
     moves.pop();
-    movesEmoji.pop();
+    movesEmoji = [];
     gas = 100;
     food = 50;
     drink = 50;
