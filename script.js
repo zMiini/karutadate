@@ -142,6 +142,8 @@ function airport() {
     entertainment -= 10;
     interact();
     moves.push(" Airport");
+    ended = true;
+    checkSuccess();
 }
 
 function home() {
@@ -207,12 +209,14 @@ function reset() {
     food = 50;
     drink = 50;
     entertainment = 75;
+    affectionPoints = 0;
     time = 100;
     ended = false;
     moves = [];
     turnCount = 0;
     removeAllCD();
     updateBars();
+    message.innerHTML = " "
 
     statBars.forEach(
         function (bar) {
@@ -227,6 +231,8 @@ function removeAllCD() {
         function (button) {
             if (button.classList.contains("onCD")) {
                 button.classList.remove("onCD")
+            } else if (button.classList.contains("used")) {
+                button.classList.remove("used")
             }
         }
     )
@@ -391,13 +397,24 @@ function onCD(button) {
     button.classList.add("onCD"); 
 }
 
+function used(button) {
+    button.classList.add("used");
+}
+
 function removeCD() {
     let lastMove = moves[moves.length - 1];
     let formatLastMove = lastMove.replace(" ","");
      buttons.forEach (
         function (button) {
             if (button.id === formatLastMove) {
+                if (button.id === "Shopping") {
+                    affectionPoints -= 30;
+                } else if (button.id === "Home" || button.id === "Airport") {
+                    ended = false;
+                    message.innerHTML = " ";
+                }
                 button.classList.remove("onCD");
+                button.classList.remove("used");
             } 
         }
     )
@@ -429,7 +446,9 @@ function buttonPressed() {
                 fuelPump();
                 break;
             case "Flower":
+                if (this.classList.contains("used")) return;
                 flowerGarden();
+                used(this);
                 break;
             case "Dancer":
                 if (this.classList.contains("onCD")) return;
@@ -478,19 +497,21 @@ function buttonPressed() {
                 break;
             case "Airport":
                 airport();
+                used(this);
                 break;
             case "Home":
                 home();
+                used(this);
                 break;
             case "Ring":
-                if (this.classList.contains("onCD")) return;
+                if (this.classList.contains("used")) return;
                 jewelryStore();
-                onCD(this);
+                used(this);
                 break;
-            case "Shopping  ":
-                if (this.classList.contains("onCD")) return;
+            case "Shopping":
+                if (this.classList.contains("used")) return;
                 shoppingMall();
-                onCD(this);
+                used(this);
                 break;
             case "up":
                 up();

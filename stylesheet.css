@@ -113,10 +113,12 @@ button {
     margin-left: -600px;
 }
 
-.interactionButtons > .onCD {
+.interactionButtons > .onCD, .interactionButtons > .used {
     opacity: 0.5;
     background-color: rgb(95, 90, 90)B7B8;
 }
+
+
 
 #messageBox {
     display: table-cell;
