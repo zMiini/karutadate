@@ -167,9 +167,10 @@ function airport() {
 }
 
 function home() {
-    interact();
+    
     moves.push(" Home");
     movesEmoji.push("  &#127969");
+    interact();
     ended = true;
     checkSuccess();
 }
@@ -217,17 +218,10 @@ function checkSuccess() {
         ended = true;
         message.innerHTML = "You will get around " + Math.round(calcAP()) + " Affection Points.";
     }
-    if (ended === true && time > 0) {
-        if (gas > 0) {
-            if (food > 0) {
-                if (drink > 0) {
-                    if (entertainment > 0) {
-                        affectionPoints += (food + drink + entertainment) / 6;
-                        message.innerHTML = "You will get around " + Math.round(calcAP()) + " Affection Points.";
-                    }
-                }
-            }
-        }
+    if (ended === true && time > 0 && gas > 0 && food > 0 && drink > 0 && entertainment > 0) {
+        let normalAP = calcAP();
+        let homeAP = normalAP * (1 - time / 100);
+        message.innerHTML = "You will get around " + Math.round(homeAP) + " Affection Points.";
     }
 }
 
