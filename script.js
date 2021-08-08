@@ -10,7 +10,7 @@ let drink = 50;
 let entertainment = 75;
 let time = 100;
 let moves = [];
-let affectionPoints = (food + drink + entertainment) / 6;
+let affectionPoints = 0;
 let turnCount = 0;
 let ended = false;
 
@@ -183,6 +183,7 @@ function checkFail() {
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
+        affectionPoints += (food + drink + entertainment) / 6;
         message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
     }
     if (ended === true && time > 0) {
@@ -190,6 +191,7 @@ function checkSuccess() {
             if (food > 0) {
                 if (drink > 0) {
                     if (entertainment > 0) {
+                        affectionPoints += (food + drink + entertainment) / 6;
                         message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
                     }
                 }
