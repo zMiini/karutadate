@@ -10,7 +10,7 @@ let drink = 50;
 let entertainment = 75;
 let time = 100;
 let moves = [];
-let affectionPoints = 0;
+let affectionPoints = (food + drink + entertainment) / 6;
 let turnCount = 0;
 let ended = false;
 
@@ -164,10 +164,6 @@ function shoppingMall() {
     moves.push(" Shopping");
 }
 
-function finalAPCalc() {
-    affectionPoints += (food + drink + entertainment) / 6;
-}
-
 function checkFail() {
     if (gas <= 0 || food <= 0 || drink <= 0 || entertainment <= 0) {
         ended = true;
@@ -187,7 +183,6 @@ function checkFail() {
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
-        finalAPCalc();
         message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
     }
     if (ended === true && time > 0) {
@@ -195,7 +190,6 @@ function checkSuccess() {
             if (food > 0) {
                 if (drink > 0) {
                     if (entertainment > 0) {
-                        finalAPCalc();
                         message.innerHTML = "You will get around " + Math.round(affectionPoints) + " Affection Points.";
                     }
                 }
@@ -251,6 +245,15 @@ function goBack() {
     ended = false;
     turnCount -= 1;
     updateBars();
+
+    message.innerHTML = " "
+
+    statBars.forEach(
+        function (bar) {
+            bar.parentNode.style.backgroundColor = "black";
+            bar.parentNode.style.border = "1px solid white";
+        }
+    )
     
     calcMoves();
 }
