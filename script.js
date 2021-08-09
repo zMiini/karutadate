@@ -165,12 +165,10 @@ function airport() {
     interact();
     moves.push(" Airport");
     movesEmoji.push(" &#9992");
-    ended = true;
     checkSuccess();
 }
 
 function home() {
-    
     moves.push(" Home");
     movesEmoji.push("  &#127969");
     interact();
@@ -207,15 +205,6 @@ function checkFail() {
     }
 }
 
-function calcAP () {
-    let affectionPoints = (food + drink + entertainment) / 6;
-    if (shopping) {
-        affectionPoints += 30;
-    }
-    return affectionPoints;
-
-}
-
 function checkSuccess() {
     if (time <= 0) {
         ended = true;
@@ -228,6 +217,15 @@ function checkSuccess() {
         }
         message.innerHTML = "You will get " + Math.ceil(homeAP) + " Affection Points.";
     }
+}
+
+function calcAP () {
+    let affectionPoints = (food + drink + entertainment) / 6;
+    if (shopping) {
+        affectionPoints += 30;
+    }
+    return affectionPoints;
+
 }
 
 function textToEmojiButton() {
@@ -264,20 +262,11 @@ function reset() {
     )
 }
 
-function removeAllCD() {
-    buttons.forEach (
-        function (button) {
-            if (button.classList.contains("onCD")) {
-                button.classList.remove("onCD")
-            } else if (button.classList.contains("used")) {
-                button.classList.remove("used")
-            }
-        }
-    )
-}
-
 function goBack() {
-    if (turnCount === 1) return;
+    if (turnCount === 1) {
+        reset();
+        return;
+    }
 
     removeCD();
     moves.pop();
@@ -302,6 +291,58 @@ function goBack() {
     )
     
     calcMoves();
+}
+
+function onCD(button) {
+    button.classList.add("onCD"); 
+}
+
+function used(button) {
+    button.classList.add("used");
+}
+
+function removeCD() {
+    let lastMove = moves[moves.length - 1];
+    let formatLastMove = lastMove.replace(" ","");
+     buttons.forEach (
+        function (button) {
+            if (button.id === formatLastMove) {
+                if (button.id === "Shopping") {
+                    shopping = false;
+                } else if (button.id === "Home") {
+                    ended = false;
+                    message.innerHTML = " ";
+                }
+                button.classList.remove("onCD");
+                button.classList.remove("used");
+            } 
+        }
+    )
+}
+
+function checkCD () {
+    if (moves.length <= 10) return;
+    const buttonsOnCD = document.querySelectorAll(".onCD");
+    buttonsOnCD.forEach(
+        function (button) {
+            let formatMove = moves[turnCount - 11].replace(" ", "");
+            if (button.id === formatMove) {
+                button.classList.remove("onCD");
+            }
+        }
+    )
+}
+
+function removeAllCD() {
+    buttons.forEach (
+        function (button) {
+            if (button.classList.contains("onCD")) {
+                button.classList.remove("onCD")
+            } else if (button.classList.contains("used")) {
+                button.classList.remove("used")
+            }
+        }
+    )
 }
 
 function calcMoves() {
@@ -442,46 +483,6 @@ function updateBars() {
     updateBarColor();
 }
 
-function onCD(button) {
-    button.classList.add("onCD"); 
-}
-
-function used(button) {
-    button.classList.add("used");
-}
-
-function removeCD() {
-    let lastMove = moves[moves.length - 1];
-    let formatLastMove = lastMove.replace(" ","");
-     buttons.forEach (
-        function (button) {
-            if (button.id === formatLastMove) {
-                if (button.id === "Shopping") {
-                    shopping = false;
-                } else if (button.id === "Home" || button.id === "Airport") {
-                    ended = false;
-                    message.innerHTML = " ";
-                }
-                button.classList.remove("onCD");
-                button.classList.remove("used");
-            } 
-        }
-    )
-}
-
-function checkCD () {
-    if (moves.length <= 10) return;
-    const buttonsOnCD = document.querySelectorAll(".onCD");
-    buttonsOnCD.forEach(
-        function (button) {
-            let formatMove = moves[turnCount - 11].replace(" ", "");
-            if (button.id === formatMove) {
-                button.classList.remove("onCD");
-            }
-        }
-    )
-}
-
 function buttonPressed() {
     if (this.id === "reset") {
         reset();
@@ -585,12 +586,12 @@ emojiButton.forEach(button => button.addEventListener("click",textToEmojiButton)
 buttons.forEach(button => button.addEventListener("click",buttonPressed));
 document.addEventListener("contextmenu", event => event.preventDefault());
 
-
 updateBars();
 
-//final entertainment + final food + final drink / 6
 
+//when you get oncd class you also get a class named 1
+//a function runs every turn (move and interact functions) that checks your class number and adds 1 until 10 when on 10 it removes your oncd class
+//but still adds number 11
 
-//deberias hacer pa que calcule el home
-//esta es la formula ap = (drink+food+emo)/6*(1-time/100)
-
+//when the goback function happens it checks if you have oncd AND 1 if true it removes oncd and it also check if you have number 11 if you do you get 
+//oncd class back and number 10
