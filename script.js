@@ -93,6 +93,9 @@ function ballroom() {
     food -= 10;
     drink -= 15;
     interact();
+    updateBars();
+    checkSuccess();
+    checkFail();
     moves.push(" Dancer");
     movesEmoji.push(" &#128131");
 }
