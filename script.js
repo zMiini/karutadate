@@ -601,14 +601,5 @@ function buttonPressed() {
 
 emojiButton.forEach(button => button.addEventListener("click",textToEmojiButton))
 buttons.forEach(button => button.addEventListener("click",buttonPressed));
-document.addEventListener("contextmenu", event => event.preventDefault());
 
 updateBars();
-
-
-//when you get oncd class you also get a class named 1
-//a function runs every turn (move and interact functions) that checks your class number and adds 1 until 10 when on 10 it removes your oncd class
-//but still adds number 11
-
-//when the goback function happens it checks if you have oncd AND 1 if true it removes oncd and it also check if you have number 11 if you do you get 
-//oncd class back and number 10
