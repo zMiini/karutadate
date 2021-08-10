@@ -309,18 +309,39 @@ function removeCD() {
             if (button.id === formatLastMove) {
                 if (button.id === "Shopping") {
                     shopping = false;
+                    button.classList.remove("used");
                 } else if (button.id === "Home") {
                     ended = false;
                     message.innerHTML = " ";
+                    button.classList.remove("used");
+                } else if (button.classList.contains("onCD")) {
+                    button.classList.remove("onCD")
+                } else {
+                    button.classList.remove("used");
                 }
-                button.classList.remove("onCD");
-                button.classList.remove("used");
+                
+                
             } 
         }
     )
 }
 
-function checkCD () {
+function giveCD() {
+    let lastTenMoves = moves.slice(Math.max(moves.length - 10, 0));
+    let lastTenMovesFormatted = [];
+    for (i = 0; i < lastTenMoves.length; i++) {
+        lastTenMovesFormatted.push(lastTenMoves[i].replace(" ",""));
+        buttons.forEach(
+            function (button) {
+                if (button.id === lastTenMovesFormatted[i]) {
+                    button.classList.add("onCD")
+                }
+            }
+        )
+    }
+}
+
+function endCD () {
     if (moves.length <= 10) return;
     const buttonsOnCD = document.querySelectorAll(".onCD");
     buttonsOnCD.forEach(
@@ -331,6 +352,11 @@ function checkCD () {
             }
         }
     )
+}
+
+function checkCD() {
+    giveCD();
+    endCD();
 }
 
 function removeAllCD() {
@@ -503,47 +529,38 @@ function buttonPressed() {
             case "Dancer":
                 if (this.classList.contains("onCD")) return;
                 ballroom();
-                onCD(this);
                 break;
             case "Coffee":
                 if (this.classList.contains("onCD")) return;
                 coffeeHouse();
-                onCD(this);
                 break;
             case "Juice":
                 if (this.classList.contains("onCD")) return;
                 juiceBar();
-                onCD(this);
                 break;
             case "Theater":
                 if (this.classList.contains("onCD")) return;
                 theater();
-                onCD(this);
                 break;
             case "Spaguetti":
                 if (this.classList.contains("onCD")) return;
                 italianRestaurant();
-                onCD(this);
                 break;
             case "Taco":
                 if (this.classList.contains("onCD")) return;
                 tacoStand();
-                onCD(this);
                 break;
             case "Nightclub":
                 if (this.classList.contains("onCD")) return;
                 nightClub();
-                onCD(this);
                 break;
             case "Fair":
                 if (this.classList.contains("onCD")) return;
                 fair();
-                onCD(this);
                 break;
             case "Sandwich":
                 if (this.classList.contains("onCD")) return;
                 sandwichShop();
-                onCD(this);
                 break;
             case "Airport":
                 airport();
