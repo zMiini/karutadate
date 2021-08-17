@@ -260,6 +260,16 @@ function reset() {
             bar.parentNode.style.border = "1px solid white";
         }
     )
+
+    buttons.forEach(
+        function(button) {
+            if (button.id === "Flower" || button.id === "Shopping") {
+                button.classList.remove("used");
+                button.classList.remove("onCD");
+
+            }
+        }
+    )
 }
 
 function goBack() {
@@ -290,6 +300,13 @@ function goBack() {
         }
     )
     
+    buttons.forEach(
+        function (button) {
+            button.classList.remove("used");
+            button.classList.remove("onCD");
+        }
+    )  
+
     calcMoves();
 }
 
@@ -313,6 +330,8 @@ function removeCD() {
                 } else if (button.id === "Home") {
                     ended = false;
                     message.innerHTML = " ";
+                    button.classList.remove("used");
+                } else if (button.id === "Flower" || button.id === "Shopping") {
                     button.classList.remove("used");
                 } else if (button.classList.contains("onCD")) {
                     button.classList.remove("onCD")
@@ -363,9 +382,9 @@ function removeAllCD() {
     buttons.forEach (
         function (button) {
             if (button.classList.contains("onCD")) {
-                button.classList.remove("onCD")
+                button.classList.remove("onCD");
             } else if (button.classList.contains("used")) {
-                button.classList.remove("used")
+                button.classList.remove("used");
             }
         }
     )
