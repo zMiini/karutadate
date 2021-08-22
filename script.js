@@ -53,25 +53,25 @@ function interact() {
 function left() {
     move();
     moves.push(" Left");
-    movesEmoji.push(" &#11013");
+    movesEmoji.push(" &#9664");
 }
 
 function up() {
     move();
     moves.push(" Up");
-    movesEmoji.push(" &#11014");
+    movesEmoji.push(" &#128316");
 }
 
 function right() {
     move();
     moves.push(" Right");
-    movesEmoji.push(" &#10145");
+    movesEmoji.push(" &#9654");
 }
 
 function down() {
     move();
     moves.push(" Down");
-    movesEmoji.push(" &#11015");
+    movesEmoji.push(" &#128317");
 }
 
 function fuelPump() {
