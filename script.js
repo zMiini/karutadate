@@ -381,12 +381,8 @@ function checkCD() {
 function removeAllCD() {
     buttons.forEach (
         function (button) {
-            if (button.classList.contains("onCD")) {
-                button.classList.remove("onCD");
-                button.classList.remove("used");
-            } else if (button.classList.contains("used")) {
-                button.classList.remove("used");
-            }
+            button.classList.remove("onCD");
+            button.classList.remove("used");
         }
     )
 }
