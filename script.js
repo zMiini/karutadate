@@ -302,16 +302,11 @@ function goBack() {
     
     buttons.forEach(
         function (button) {
-            button.classList.remove("used");
             button.classList.remove("onCD");
         }
     )  
 
     calcMoves();
-}
-
-function onCD(button) {
-    button.classList.add("onCD"); 
 }
 
 function used(button) {
@@ -331,7 +326,7 @@ function removeCD() {
                     ended = false;
                     message.innerHTML = " ";
                     button.classList.remove("used");
-                } else if (button.id === "Flower" || button.id === "Shopping") {
+                } else if (button.id === "Flower" || button.id === "Shopping" || button.id === "Airport" || button.id === "Ring") {
                     button.classList.remove("used");
                 } else if (button.classList.contains("onCD")) {
                     button.classList.remove("onCD")
@@ -352,6 +347,7 @@ function giveCD() {
         lastTenMovesFormatted.push(lastTenMoves[i].replace(" ",""));
         buttons.forEach(
             function (button) {
+                if (button.id === "Gas") return;
                 if (button.id === lastTenMovesFormatted[i]) {
                     button.classList.add("onCD")
                 }
